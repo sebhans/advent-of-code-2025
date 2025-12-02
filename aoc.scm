@@ -1,8 +1,16 @@
 (define-module (aoc))
 (use-modules (ice-9 textual-ports))
+
 (define-public run
                (lambda (solver)
                  (if (not (null? (cdr (command-line))))
                    (let ((input-port (open-input-file (car (cdr (command-line))))))
                      (display (solver (get-string-all input-port)))
+                     (display #\newline)
                      (close-port input-port)))))
+
+(define-public lines-in
+               (lambda (s)
+                 (if (string-null? s)
+                   '()
+                   (string-split (substring s 0 (+ 1 (string-skip-right s #\newline))) #\newline))))
