@@ -16,8 +16,16 @@ guile -L . day1.scm myday1input.txt
 
 ## Testing
 All examples contained in the puzzles are collected in `tests.scm` in the form
-of unit tests. Run them like so:
+of unit tests. Run them like this:
 
 ```bash
 guile -L . tests.scm
+```
+
+I develop my solutions bottom-up by writing helper functions and composing them.
+I write tests for the helper functions of each day in the file `dayN-test.scm`.
+Run them like this:
+
+```bash
+guile -L . day1-test.scm
 ```
