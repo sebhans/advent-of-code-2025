@@ -29,9 +29,9 @@
                (let ((half-s (halve-string s)))
                  (string=? s (string-append half-s half-s))))
 
-(define-public (sum-invalid-ids range)
+(define-public (sum-if predicate range)
                ((range-iterator range) (lambda (count id)
-                                                (if (invalid-id? (number->string id))
+                                                (if (predicate (number->string id))
                                                   (+ count id)
                                                   count)) 0))
 
@@ -39,7 +39,31 @@
                (reduce + 0 l))
 
 (define-public (solve1 input)
-               (sum (map sum-invalid-ids (string->ranges input))))
+               (sum (map (lambda (range) (sum-if invalid-id? range)) (string->ranges input))))
 
+(define-public repeat-string
+               (case-lambda
+                 ((s n) (repeat-string s n ""))
+                 ((s n acc) (if (<= n 0)
+                              acc
+                              (repeat-string s (- n 1) (string-append acc s))))))
+
+(define-public repeated-string?
+               (case-lambda
+                 ((s) (repeated-string? s 2 (string-length s)))
+                 ((s n) (let ((subseq (substring s 0 (floor-quotient (string-length s) n))))
+                          (string=? s (repeat-string subseq n))))
+                 ((s repetitions len) (if (> repetitions len)
+                                        #f
+                                        (if (repeated-string? s repetitions)
+                                          #t
+                                          (repeated-string? s (1+ repetitions) len))))))
+
+(define-public (strict-invalid-id? s)
+               (repeated-string? s))
+
+(define-public (solve2 input)
+               (sum (map (lambda (range) (sum-if strict-invalid-id? range)) (string->ranges input))))
 
 (run solve1)
+(run solve2)
