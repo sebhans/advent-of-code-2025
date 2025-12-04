@@ -35,9 +35,6 @@
                                                   (+ count id)
                                                   count)) 0))
 
-(define-public (sum l)
-               (reduce + 0 l))
-
 (define-public (solve1 input)
                (sum (map (lambda (range) (sum-if invalid-id? range)) (string->ranges input))))
 

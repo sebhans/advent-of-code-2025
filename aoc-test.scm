@@ -23,4 +23,12 @@
             '()
             (lines-in ""))
 
+(test-equal "sum sums empty list to 0"
+            0
+            (sum '()))
+
+(test-equal "sum sums list"
+            9
+            (sum '(1 3 5)))
+
 (test-end "harness")

@@ -1,5 +1,6 @@
 (define-module (aoc))
-(use-modules (ice-9 textual-ports))
+(use-modules (ice-9 textual-ports)
+             (srfi srfi-1))
 
 (define-public run
                (lambda (solver)
@@ -14,3 +15,6 @@
                  (if (string-null? s)
                    '()
                    (string-split (substring s 0 (+ 1 (string-skip-right s #\newline))) #\newline))))
+
+(define-public (sum l)
+               (reduce + 0 l))

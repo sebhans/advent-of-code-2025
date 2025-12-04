@@ -57,14 +57,6 @@
             3
             (sum-if (lambda (n) #t) '(1 . 2)))
 
-(test-equal "sum sums empty list to 0"
-            0
-            (sum '()))
-
-(test-equal "sum sums list"
-            9
-            (sum '(1 3 5)))
-
 (test-equal "repeat-string yields the empty string if repeated 0 times"
             ""
             (repeat-string "a" 0))
