@@ -14,13 +14,6 @@
                                          (cons candidate pos)
                                          (find-best-joltage bank start end (- candidate 1))))))))
 
-(define-public (solve1 input)
-               (sum (map (lambda (bank)
-                           (letrec ((left-joltage (find-best-joltage bank 0 (- (string-length bank) 1)))
-                                    (right-joltage (find-best-joltage bank (1+ (cdr left-joltage)) (string-length bank))))
-                             (+ (* (car left-joltage) 10) (car right-joltage))))
-                         (lines-in input))))
-
 (define-public find-best-joltage-with-n-batteries
                (case-lambda
                  ((bank n) (find-best-joltage-with-n-batteries bank 0 n 0))
@@ -29,9 +22,12 @@
                                        (let ((j (find-best-joltage bank start (- (string-length bank) (- n 1)))))
                                          (find-best-joltage-with-n-batteries bank (1+ (cdr j)) (- n 1) (+ (* acc 10) (car j))))))))
 
-(define-public (solve2 input)
-               (sum (map (lambda (bank) (find-best-joltage-with-n-batteries bank 12))
+(define-public (solve-with-n-batteries input n)
+               (sum (map (lambda (bank) (find-best-joltage-with-n-batteries bank n))
                          (lines-in input))))
+
+(define-public (solve1 input) (solve-with-n-batteries input 2))
+(define-public (solve2 input) (solve-with-n-batteries input 12))
 
 (run solve1)
 (run solve2)
