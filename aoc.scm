@@ -16,5 +16,21 @@
                    '()
                    (string-split (substring s 0 (+ 1 (string-skip-right s #\newline))) #\newline))))
 
+(define-public (string->char-matrix s)
+               (letrec ((lines (lines-in s))
+                        (height (length lines))
+                        (width (string-length (car lines)))
+                        (matrix (make-array #f width height)))
+                 (for-each
+                   (lambda (y line)
+                     (for-each
+                       (lambda (x c)
+                         (array-set! matrix c x y))
+                       (iota (- width 0))
+                       line))
+                   (iota (- height 0))
+                   (map string->list lines))
+                 matrix))
+
 (define-public (sum l)
                (reduce + 0 l))
