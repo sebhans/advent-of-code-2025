@@ -55,5 +55,6 @@ L82")
 17
 32")
 (test-equal "example day 5, part 1" 3 (day5:solve1 day5-example))
+(test-equal "example day 5, part 2" 14 (day5:solve2 day5-example))
 
 (test-end "harness")

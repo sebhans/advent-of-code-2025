@@ -44,4 +44,22 @@
 (define-public (solve1 input)
                (count-fresh-ingredients (parse-db input)))
 
+(define-public merge-sorted-ranges
+               (case-lambda
+                 ((ranges) (merge-sorted-ranges (cdr ranges) (list (car ranges))))
+                 ((unprocessed merged)
+                  (if (null? unprocessed)
+                    merged
+                    (let ((next (car unprocessed))
+                          (current (car merged)))
+                      (if (<= (car next) (cdr current))
+                        (merge-sorted-ranges (cdr unprocessed) (cons (cons (car current) (max (cdr current) (cdr next))) (cdr merged)))
+                        (merge-sorted-ranges (cdr unprocessed) (cons next merged))))))))
+
+(define-public (range-length range) (1+ (- (cdr range) (car range))))
+
+(define-public (solve2 input)
+               (sum (map range-length (merge-sorted-ranges (car (sort-db (parse-db input)))))))
+
 (run solve1)
+(run solve2)
