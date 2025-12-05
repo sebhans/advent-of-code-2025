@@ -40,5 +40,6 @@ L82")
 .@@@@@@@@.
 @.@.@@@.@.")
 (test-equal "example day 4, part 1" 13 (day4:solve1 day4-example))
+(test-equal "example day 4, part 2" 43 (day4:solve2 day4-example))
 
 (test-end "harness")

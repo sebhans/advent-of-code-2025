@@ -50,4 +50,14 @@
             4
             (count-accessible-rolls count-accessible-rolls-test-diagram))
 
+(define remove-and-count-accessible-rolls-test-diagram (make-array #\@ 3 3))
+(define remove-and-count-accessible-rolls-result (make-array #\@ 3 3))
+(array-set! remove-and-count-accessible-rolls-result #\. 0 0)
+(array-set! remove-and-count-accessible-rolls-result #\. 0 2)
+(array-set! remove-and-count-accessible-rolls-result #\. 2 0)
+(array-set! remove-and-count-accessible-rolls-result #\. 2 2)
+(test-equal "remove-and-count-accessible-rolls removes 4 accessible rolls in a full 3x3 diagram"
+            (list remove-and-count-accessible-rolls-result 4)
+            (remove-and-count-accessible-rolls remove-and-count-accessible-rolls-test-diagram 0))
+
 (test-end "harness")
