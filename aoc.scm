@@ -32,5 +32,24 @@
                    (map string->list lines))
                  matrix))
 
+(define-public (split-on-ws s)
+               (filter (lambda (part) (not (string-null? part))) (string-split s (char-set #\space #\tab))))
+
+(define-public (string->matrix parse s)
+               (letrec ((lines (lines-in s))
+                        (height (length lines))
+                        (width (length (split-on-ws (car lines))))
+                        (matrix (make-array #f width height)))
+                 (for-each
+                   (lambda (y line)
+                     (for-each
+                       (lambda (x s)
+                         (array-set! matrix (parse x y s) x y))
+                       (iota (- width 0))
+                       line))
+                   (iota (- height 0))
+                   (map split-on-ws lines))
+                 matrix))
+
 (define-public (sum l)
                (reduce + 0 l))
