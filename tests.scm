@@ -63,5 +63,6 @@ L82")
   6 98  215 314
 *   +   *   +  ")
 (test-equal "example day 6, part 1" 4277556 (day6:solve1 day6-example))
+(test-equal "example day 6, part 2" 3263827 (day6:solve2 day6-example))
 
 (test-end "harness")

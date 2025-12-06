@@ -1,5 +1,5 @@
 (define-module (day6))
-(use-modules (aoc) (srfi srfi-1))
+(use-modules (aoc) (ice-9 string-fun) (srfi srfi-1))
 
 (define-public (solve1 input)
                (letrec ((problems (string->matrix
@@ -24,4 +24,33 @@
                            (iota (car dimensions)))
                  total))
 
+(define (op s)
+  (if (string= s "+")
+    +
+    (if (string= s "*")
+      *
+      #f)))
+
+(define-public (solve2 input)
+               (cdr
+                 (fold (lambda (cur acc)
+                         (if (string-every char-numeric? cur)
+                           (cons (cons (string->number cur) (car acc)) (cdr acc))
+                           (cons '() (+ (cdr acc) (apply (op cur) (car acc))))))
+                       '(() . 0)
+                       (reverse
+                         (string-tokenize
+                           (string-replace-substring
+                             (string-replace-substring
+                               (char-matrix->string
+                                 (transpose-array
+                                   (string->char-matrix
+                                     (let ((lines (lines-in input)))
+                                       (string-join (cons (last lines) (drop-right lines 1)) 
+                                                  "
+"))) 1 0))
+                               "*" "* ")
+                             "+" "+ "))))))
+
 (run solve1)
+(run solve2)

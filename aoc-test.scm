@@ -32,6 +32,13 @@
 (test-equal "string->char-matrix reads 2x2 matrix 0/1" #\1 (array-ref matrix 0 1))
 (test-equal "string->char-matrix reads 2x2 matrix 1/1" #\. (array-ref matrix 1 1))
 
+; test char-matrix->string
+(test-equal "char-matrix->string renders 3x2 matrix" "abc
+def
+" (char-matrix->string (string->char-matrix "abc
+def
+")))
+
 ; test split-on-ws
 (test-equal "split-on-ws yields empty list on empty string" '() (split-on-ws ""))
 (test-equal "split-on-ws yields string if it doesn't contain whitespace" '("a") (split-on-ws "a"))

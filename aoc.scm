@@ -32,6 +32,18 @@
                    (map string->list lines))
                  matrix))
 
+(define-public (char-matrix->string m)
+               (let ((dimensions (array-dimensions m))
+                     (s ""))
+                 (for-each (lambda (row)
+                             (for-each (lambda (col)
+                                         (set! s (string-append s (string (array-ref m col row)))))
+                                       (iota (car dimensions)))
+                             (set! s (string-append s "
+")))
+                           (iota (cadr dimensions)))
+                 s))
+
 (define-public (split-on-ws s)
                (filter (lambda (part) (not (string-null? part))) (string-split s (char-set #\space #\tab))))
 
