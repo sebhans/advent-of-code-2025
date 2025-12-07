@@ -24,4 +24,38 @@
                         (set! state (move-beam diagram state)))
                  (third state)))
 
+(define (assoc-update alist key update-function default-value)
+  (let ((old-value (assoc-ref alist key)))
+    (assoc-set! alist key (if old-value (update-function old-value) default-value))))
+
+(define (inc-by n)
+  (lambda (m) (+ m n)))
+
+(define-public (move-beam-quantum diagram state)
+               (letrec ((xs (first state))
+                        (y (second state))
+                        (next-y (1+ y))
+                        (height (cadr (array-dimensions diagram))))
+                 (let ((next-xs
+                         (fold (lambda (xs acc)
+                                 (let ((x (car xs))
+                                       (timelines (cdr xs)))
+                                   (if (equal? (array-ref diagram x next-y) #\^)
+                                     (assoc-update
+                                       (assoc-update acc (1+ x) (inc-by timelines) timelines)
+                                       (1- x) (inc-by timelines) timelines)
+                                     (assoc-update acc x (inc-by timelines) timelines))))
+                               '()
+                               xs)))
+                   (list next-xs next-y))))
+
+(define-public (solve2 input)
+               (letrec ((diagram (string->char-matrix input))
+                        (start (char-matrix-find-any diagram #\S))
+                        (state (list (list (cons (car start) 1)) (cdr start))))
+                 (while (< (second state) (1- (cadr (array-dimensions diagram))))
+                        (set! state (move-beam-quantum diagram state)))
+                 (fold (lambda (xs acc) (+ acc (cdr xs))) 0 (first state))))
+
 (run solve1)
+(run solve2)
