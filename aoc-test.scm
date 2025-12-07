@@ -39,6 +39,15 @@ def
 def
 ")))
 
+; test char-matrix-find-any
+(define char-matrix-find-any-test-matrix (string->char-matrix "@#-
+1 ."))
+(test-equal "char-matrix-find-any finds top left" '(0 . 0) (char-matrix-find-any char-matrix-find-any-test-matrix #\@))
+(test-equal "char-matrix-find-any finds top right" '(2 . 0) (char-matrix-find-any char-matrix-find-any-test-matrix #\-))
+(test-equal "char-matrix-find-any finds bottom left" '(0 . 1) (char-matrix-find-any char-matrix-find-any-test-matrix #\1))
+(test-equal "char-matrix-find-any finds bottom right" '(2 . 1) (char-matrix-find-any char-matrix-find-any-test-matrix #\.))
+(test-equal "char-matrix-find-any finds bottom right" #f (char-matrix-find-any char-matrix-find-any-test-matrix #\0))
+
 ; test split-on-ws
 (test-equal "split-on-ws yields empty list on empty string" '() (split-on-ws ""))
 (test-equal "split-on-ws yields string if it doesn't contain whitespace" '("a") (split-on-ws "a"))

@@ -44,6 +44,18 @@
                            (iota (cadr dimensions)))
                  s))
 
+(define-public char-matrix-find-any
+               (case-lambda
+                 ((m c) (let ((dimensions (array-dimensions m)))
+                          (char-matrix-find-any m c (car dimensions) (cadr dimensions) 0 0)))
+                 ((m c width height x y) (if (>= y height)
+                                          #f
+                                          (if (>= x width)
+                                            (char-matrix-find-any m c width height 0 (1+ y))
+                                            (if (equal? (array-ref m x y) c)
+                                              (cons x y)
+                                              (char-matrix-find-any m c width height (1+ x) y)))))))
+
 (define-public (split-on-ws s)
                (filter (lambda (part) (not (string-null? part))) (string-split s (char-set #\space #\tab))))
 

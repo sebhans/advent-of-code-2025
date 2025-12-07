@@ -1,0 +1,27 @@
+(define-module (day7))
+(use-modules (aoc) (srfi srfi-1))
+
+(define-public (move-beam diagram state)
+               (letrec ((xs (first state))
+                        (y (second state))
+                        (next-y (1+ y))
+                        (height (cadr (array-dimensions diagram)))
+                        (split-count (third state)))
+                 (let ((next-xs-and-split-count
+                         (fold (lambda (x acc)
+                                 (if (equal? (array-ref diagram x next-y) #\^)
+                                   (cons (lset-adjoin equal? (car acc) (1- x) (1+ x)) (1+ (cdr acc)))
+                                   (cons (lset-adjoin equal? (car acc) x) (cdr acc))))
+                               (cons '() split-count)
+                               xs)))
+                   (list (car next-xs-and-split-count) next-y (cdr next-xs-and-split-count)))))
+
+(define-public (solve1 input)
+               (letrec ((diagram (string->char-matrix input))
+                        (start (char-matrix-find-any diagram #\S))
+                        (state (list (list (car start)) (cdr start) 0)))
+                 (while (< (second state) (1- (cadr (array-dimensions diagram))))
+                        (set! state (move-beam diagram state)))
+                 (third state)))
+
+(run solve1)
