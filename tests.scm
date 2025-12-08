@@ -106,5 +106,6 @@ L82")
 984,92,344
 425,690,689")
 (test-equal "example day 8, part 1" 40 (day8:solve1 day8-example 10))
+(test-equal "example day 8, part 2" 25272 (day8:solve2 day8-example))
 
 (test-end "harness")
