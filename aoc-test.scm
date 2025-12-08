@@ -80,4 +80,22 @@ def
             9
             (sum '(1 3 5)))
 
+; test product
+(test-equal "product yields 1 for the empty list"
+            1
+            (product '()))
+
+(test-equal "product yields the product of all list elements"
+            105
+            (product '(3 5 7)))
+
+; test cartesian-product
+(test-equal "cartesian-product works for 2x2"
+            '((1 . 3) (1 . 4) (2 . 3) (2 . 4))
+            (cartesian-product '(1 2) '(3 4)))
+
+(test-equal "cartesian-half-product works for 3-element list"
+            '((1 . 2) (1 . 3) (2 . 3))
+            (cartesian-half-product '(1 2 3)))
+
 (test-end "harness")

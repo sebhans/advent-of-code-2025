@@ -6,6 +6,7 @@
 (use-modules ((day5) #:prefix day5:))
 (use-modules ((day6) #:prefix day6:))
 (use-modules ((day7) #:prefix day7:))
+(use-modules ((day8) #:prefix day8:))
 (test-begin "harness")
 
 (define day1-example "L68
@@ -83,5 +84,27 @@ L82")
 .^.^.^.^.^...^.
 ...............")
 (test-equal "example day 7, part 1" 21 (day7:solve1 day7-example))
+
+(define day8-example "162,817,812
+57,618,57
+906,360,560
+592,479,940
+352,342,300
+466,668,158
+542,29,236
+431,825,988
+739,650,466
+52,470,668
+216,146,977
+819,987,18
+117,168,530
+805,96,715
+346,949,466
+970,615,88
+941,993,340
+862,61,35
+984,92,344
+425,690,689")
+(test-equal "example day 8, part 1" 40 (day8:solve1 day8-example 10))
 
 (test-end "harness")

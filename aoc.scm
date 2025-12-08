@@ -3,10 +3,10 @@
              (srfi srfi-1))
 
 (define-public run
-               (lambda (solver)
+               (lambda (solver . args)
                  (if (not (null? (cdr (command-line))))
                    (let ((input-port (open-input-file (car (cdr (command-line))))))
-                     (display (solver (get-string-all input-port)))
+                     (display (apply solver (get-string-all input-port) args))
                      (display #\newline)
                      (close-port input-port)))))
 
@@ -77,3 +77,21 @@
 
 (define-public (sum l)
                (reduce + 0 l))
+
+(define-public (product l)
+               (reduce * 1 l))
+
+(define-public (cartesian-product l1 l2)
+               (append-map (lambda (e1)
+                             (map (lambda (e2)
+                                    (cons e1 e2)) l2))
+                           l1))
+
+(define-public cartesian-half-product
+               (case-lambda
+                 ((l) (cartesian-half-product l '()))
+                 ((l acc) (if (null? l)
+                            acc
+                            (let ((head (car l))
+                               (tail (cdr l)))
+                              (cartesian-half-product tail (append acc (map (lambda (e) (cons head e)) tail))))))))
