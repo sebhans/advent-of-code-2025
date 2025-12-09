@@ -108,4 +108,14 @@ L82")
 (test-equal "example day 8, part 1" 40 (day8:solve1 day8-example 10))
 (test-equal "example day 8, part 2" 25272 (day8:solve2 day8-example))
 
+(define day9-example "7,1
+11,1
+11,7
+9,7
+9,5
+2,5
+2,3
+7,3")
+(test-equal "example day 9, part 1" 50 (day9:solve1 day9-example))
+
 (test-end "harness")
