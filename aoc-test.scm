@@ -98,4 +98,25 @@ def
             '((1 . 2) (1 . 3) (2 . 3))
             (cartesian-half-product '(1 2 3)))
 
+; test dedup
+(test-equal "dedup handles empty list"
+            '()
+            (dedup '()))
+
+(test-equal "dedup handles list with unique elements"
+            '(1 2 3)
+            (dedup '(1 2 3)))
+
+(test-equal "dedup removes adjecent duplicates"
+            '(1 2 3)
+            (dedup '(1 1 2 2 3 3)))
+
+(test-equal "dedup keeps non-adjecent duplicates"
+            '(3 1 2 3 2 1)
+            (dedup '(3 1 2 3 2 1)))
+
+(test-equal "dedup shrinks all-equal list to a single element"
+            '(1)
+            (dedup '(1 1 1 1 1 1 1 1 1 1 1 1 1 1 1)))
+
 (test-end "harness")

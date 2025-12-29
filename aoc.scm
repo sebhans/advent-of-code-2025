@@ -95,3 +95,13 @@
                             (let ((head (car l))
                                (tail (cdr l)))
                               (cartesian-half-product tail (append acc (map (lambda (e) (cons head e)) tail))))))))
+
+(define-public dedup
+               (case-lambda
+                 ((l) (dedup l '()))
+                 ((l uniq)
+                  (cond
+                    ((null? l) (reverse uniq))
+                    ((null? uniq) (dedup (cdr l) (cons (car l) uniq)))
+                    ((equal? (car l) (car uniq)) (dedup (cdr l) uniq))
+                    (else (dedup (cdr l) (cons (car l) uniq)))))))
