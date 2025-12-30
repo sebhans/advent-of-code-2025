@@ -8,6 +8,7 @@
 (use-modules ((day7) #:prefix day7:))
 (use-modules ((day8) #:prefix day8:))
 (use-modules ((day9) #:prefix day9:))
+(use-modules ((day10) #:prefix day10:))
 (test-begin "harness")
 
 (define day1-example "L68
@@ -119,5 +120,10 @@ L82")
 7,3")
 (test-equal "example day 9, part 1" 50 (day9:solve1 day9-example))
 (test-equal "example day 9, part 2" 24 (day9:solve2 day9-example))
+
+(define day10-example "[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}
+[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}
+[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}")
+(test-equal "example day 10, part 1" 7 (day10:solve1 day10-example))
 
 (test-end "harness")
